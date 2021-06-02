@@ -1,7 +1,7 @@
 import Header from './components/Header';
 import ProductsContainer from './containers/ProductsContainer';
 import Massage from './components/Massage';
-import Cart from './components/Cart';
+import CartContainer from './containers/CartContainer';
 import Footer from './components/Footer';
 
 export default function App () {
@@ -13,7 +13,7 @@ export default function App () {
 
               <ProductsContainer/>
               <Massage/>
-              <Cart/>
+              <CartContainer/>
           
           </div>
       </main>

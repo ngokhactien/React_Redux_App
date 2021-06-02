@@ -1,7 +1,6 @@
-import CartItem from './CartItem';
-import CartResult from './CartResult';
 
-export default function Cart() {
+export default function Cart(props) {
+    var { children } = props ;
     return (
         <section className="section">
             <div className="table-responsive">
@@ -17,10 +16,7 @@ export default function Cart() {
                         </tr>
                     </thead>
                     <tbody>
-                        <CartItem/>
-                        <CartItem/>
-                        <CartItem/>
-                        <CartResult/>
+                        { children }
                     </tbody>
                 </table>
             </div>

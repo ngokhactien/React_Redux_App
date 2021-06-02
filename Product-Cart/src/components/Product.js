@@ -1,5 +1,5 @@
 
-function Product(props) {
+export default function Product(props) {
         var { product } = props ;
         return (
             <div className="col-lg-4 col-md-6 mb-r">
@@ -30,7 +30,14 @@ function Product(props) {
                         <div className="card-footer">
                             <span className="left">{ product.price }$</span>
                             <span className="right">
-                                <a href className="btn-floating blue-gradient" data-toggle="tooltip" data-placement="top" title="" data-original-title="Add to Cart">
+                                <a href 
+                                    className="btn-floating blue-gradient" 
+                                    data-toggle="tooltip" 
+                                    data-placement="top" 
+                                    title="" 
+                                    data-original-title="Add to Cart"
+                                    onClick = { () =>  addToCart( product ) }
+                                >
                                     <i className="fa fa-shopping-cart"></i>
                                 </a>
                             </span>
@@ -41,6 +48,7 @@ function Product(props) {
         );
 };
 
+// set sao cho sản phẩn 
 const showRating = (rating) =>{
     var result = [];
     for(var i = 1 ; i <= rating ; i++ ){
@@ -52,4 +60,6 @@ const showRating = (rating) =>{
     return result
 };
 
-export default Product;
+var addToCart = () => {
+
+}

@@ -24,11 +24,14 @@ ProductsContainer.propTypes = {
 }
 
 
-var mapStatetoProps = state =>{
+const mapStatetoProps = state =>{
     return{
         products : state.products
     }
 
 } 
 
+const mapDispatchToProps = () => {
+    
+}
 export default connect(mapStatetoProps, null) (ProductsContainer);
