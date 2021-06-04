@@ -19,7 +19,7 @@ var initialState = [
         rating : 3
     },
     {
-        id :1 ,
+        id :3 ,
         name : 'Iphone 12 Plus',
         image : 'https://img.websosanh.vn/v2/users/review/images/g0uimocg53p63.jpg?compress=85',
         description : 'Sản phẩm do Apple sản phẩm',

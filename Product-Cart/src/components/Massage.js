@@ -1,7 +1,8 @@
-export default function Massage() {
+export default function Massage(props) {
+    var {massage} = props ;
     return (
         <h3>
-            <span className="badge amber darken-2">Mua Hàng Thành Công !</span>
+            <span className="badge amber darken-2"> { massage } </span>
         </h3>
     );
 }

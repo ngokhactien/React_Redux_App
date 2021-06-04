@@ -1,6 +1,6 @@
 import Header from './components/Header';
 import ProductsContainer from './containers/ProductsContainer';
-import Massage from './components/Massage';
+import MassageContainer from './containers/MassageContainer';
 import CartContainer from './containers/CartContainer';
 import Footer from './components/Footer';
 
@@ -12,7 +12,7 @@ export default function App () {
           <div className="container">
 
               <ProductsContainer/>
-              <Massage/>
+              <MassageContainer/>
               <CartContainer/>
           
           </div>

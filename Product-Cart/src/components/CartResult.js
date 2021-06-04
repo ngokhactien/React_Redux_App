@@ -1,7 +1,16 @@
 
 export default function CartResult(props) {
     var { cart } = props ;
-    console.log(cart);
+
+    //  tính tổng tiền của các sản phẩm
+    var showTotalAmount = () => {
+        var total = 0 ;
+        for(var i = 0 ; i< cart.length ; i++ ){
+            total += cart[i].product.price * cart[i].quantity
+        }
+        return total ;
+    }
+
     return (
         <tr>
             <td colSpan="3"></td>
@@ -12,7 +21,7 @@ export default function CartResult(props) {
             </td>
             <td>
                 <h4>
-                    <strong> {showTotalAmount(cart)} $</strong>
+                    <strong> {showTotalAmount()} $</strong>
                 </h4>
             </td>
             <td colSpan="3">
@@ -24,11 +33,3 @@ export default function CartResult(props) {
     );
 };
 
-//  tính tổng tiền của các sản phẩm
-var showTotalAmount = (cart) => {
-    var total = 0 ;
-    for(var i = 0 ; i< cart.length ; i++ ){
-        total += cart[i].product.price * cart[i].quantity
-    }
-    return total ;
-}

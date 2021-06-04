@@ -4,40 +4,50 @@ import * as Massage from './../constants/Massage';
 import Cart from './../components/Cart';
 import CartItem from './../components/CartItem';
 import CartResult from './../components/CartResult';
+import { actChangeMassage, actRemoveProductInCart , actUpdateProductInCart } from './../actions/index';
+
 
 function CartContainer ( props) {
-    var { cart } = props ;
+    var { cart , onDeleteProductInCart , onChangeMassage , onUpdataProductInCart} = props ;
+
+    var showTotalAmount = () =>{
+        var result = null ;
+        if(cart.length > 0){
+            result = <CartResult cart = {cart} />
+        }
+        return result;
+    };
+
+    var showCartItem = () =>{
+        var result = <tr>
+            <td>
+                {Massage.MSG_CART_EMPTY}
+            </td>
+        </tr> ;
+        if(cart.length > 0){
+            result = cart.map( (item , index) => {
+                return (
+                    <CartItem 
+                        key = {index}
+                        item = {item}
+                        index = { index }
+                        onDeleteProductInCart = {onDeleteProductInCart}
+                        onChangeMassage = {onChangeMassage}
+                        onUpdataProductInCart = {onUpdataProductInCart}
+                    />
+                );
+            })
+        }
+        return result;
+    }
+
     return (
         <Cart>
-            { showCartItem(cart) }
-            { showTotalAmount(cart) }
+            { showCartItem() }
+            { showTotalAmount() }
         </Cart>
     );
 };
-
-var showCartItem = cart =>{
-    var result = Massage.MSG_CART_EMPTY ;
-    if(cart.length > 0){
-        result = cart.map( (item , index) => {
-            return (
-                <CartItem 
-                    key = {index}
-                    item = {item}
-                    index = { index }
-                />
-            );
-        })
-    }
-    return result;
-}
-
-var showTotalAmount = cart =>{
-    var result = null ;
-    if(cart.length > 0){
-        result = <CartResult cart = {cart} />
-    }
-    return result;
-}
 
 CartContainer.propTypes = {
     cart : PropTypes.arrayOf(PropTypes.shape({
@@ -51,13 +61,29 @@ CartContainer.propTypes = {
             rating : PropTypes.number.isRequired
         }).isRequired ,
         quatity : PropTypes.number.isRequired
-    })).isRequired
+    })).isRequired ,
+    onDeleteProductInCart :PropTypes.func.isRequired ,
+    onChangeMassage : PropTypes.func.isRequired,
+    onUpdataProductInCart :PropTypes.func.isRequired
 }
 
 const mapStatetoProps = state =>{
     return{
         cart : state.cart
     }
+};
+const mapDispatchToProps = (dispatch , props) => {
+    return {
+        onDeleteProductInCart : (product) => {
+            dispatch(actRemoveProductInCart(product))
+        },
+        onChangeMassage : (message) => {
+            dispatch(actChangeMassage(message))
+        },
+        onUpdataProductInCart : (product , quantity) => {
+            dispatch(actUpdateProductInCart(product , quantity))
+        }
+    }
 }
 
-export default connect(mapStatetoProps, null) (CartContainer);
+export default connect(mapStatetoProps, mapDispatchToProps) (CartContainer);
