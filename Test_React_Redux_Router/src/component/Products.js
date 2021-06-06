@@ -27,6 +27,8 @@ export default function Products(props) {
     const url = match.url ;
 
     const result = products.map( (product , index) => {
+        var {location} = props ;
+        console.log(location);
         return (
             <NavLink  key={index} to ={`${url}/${product.slug}`}>
                 <li className="list-group-item">

@@ -18,7 +18,12 @@ const menus = [
   },
   {
     name: 'Sản Phẩm' ,
-    to:"/product",
+    to:"/products",
+    exact:false
+  },
+  {
+    name: 'Đăng Nhập' ,
+    to:"/login",
     exact:false
   }
 ];

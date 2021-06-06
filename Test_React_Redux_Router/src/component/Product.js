@@ -1,7 +1,6 @@
 export default function Product(props) {
   const {match} = props ;
   const name = match.params.name
-  console.log(match);
 
   return (
     <h1>

@@ -3,6 +3,8 @@ import NotFound  from './component/NotFound';
 import Home  from './component/Home';
 import About  from './component/About';
 import Products  from './component/Products';
+import Login  from './component/Login'
+
 const routes = [
     {
         path : '/',
@@ -20,9 +22,14 @@ const routes = [
         main : () => <Contact /> 
     },
     {
-        path : '/product',
+        path : '/products',
         exact : false ,
-        main : ({match}) => <Products match={match}/> 
+        main : ({match , location}) => <Products match={match} location={location}/> 
+    },
+    {
+        path : '/login',
+        exact : false ,
+        main : ({location}) => <Login  location={location}/> 
     },
     {
         path : '',
