@@ -1,25 +1,35 @@
-import logo from './logo.svg';
+
 import './App.css';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return (
+        <div>
+            <div className="navbar navbar-default">
+                <a href className="navbar-brand">CALL API</a>
+                <ul className="nav navbar-nav">
+                <li >
+                    <a href >Trang Chủ</a>
+                </li>
+                <li>
+                    <a href>Quản lý sản phẩm</a>
+                </li>
+                </ul>
+            </div>
+
+        
+            <div class="container">
+                
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        
+                    </div>
+                </div>
+            
+            </div>
+        
+        </div>
+    
+    );
 }
 
 export default App;
