@@ -1,21 +1,26 @@
 import ProductList from './../../Components/ProductList/ProductList';
+import { useEffect, useState } from 'react';
 import ProductItem from './../../Components/ProduceItem/ProductItem';
 import { connect } from 'react-redux';
 import axios from 'axios';
+
 function ProductListPage(props) {
-    const products = [] ;
-    // const {products} = props;
 
-    axios({
-        method: 'post',
-        url: '/user/12345',
-        data: {
-          firstName: 'Fred',
-          lastName: 'Flintstone'
-        }
-      });
+    const [products ,setProducts] = useState([]);
+    useEffect(()=>{   
+        axios({
+            method: 'GET',
+            url: 'http://localhost:3000/products',
+            data: null
+        }).then(res => { 
+            setProducts(res.data);
+        }).catch(err =>{
+            console.log(err);
+        });
+    });
 
-    const showProducts = (products) =>{
+    var showProducts = (products) =>{
+        console.log(products);
         var result = null ;
         if(products.length >0){
             result = products.map((product , index)=>{
@@ -42,7 +47,7 @@ function ProductListPage(props) {
         </div> 
         
     );
-}
+};
 
 const mapStateToProps = state =>{
     return {
