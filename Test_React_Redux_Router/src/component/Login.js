@@ -1,41 +1,36 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
 
-class Login extends Component {
-	
-	constructor(props) {
-		super(props);
-		this.state = {
-			txtUsername : '',
-			txtPassword : ''
-		}
-	}
-	
-	onChange = (e) => {
-		var target = e.target;
+function Login(props) {
+
+	// const handleOnChange = event => {
+	// 	const { name, value } = event.target;
+	// 	setInputValues({ ...inputValues, [name]: value });
+	//   };
+	const [inputValues, setInputValues] = useState({
+		txtUsername: '', txtPassword: ''
+	});
+
+	const onChange = (event) => {
+		var target = event.target;
 		var name  = target.name ;
 		var value = target.type === 'checkbox' ? target.checked : target.value ;
-		this.setState( {
-			[name] : value 
-		});
+		setInputValues({...inputValues , [name]:value})
 	};
 
-	onLogin = (e) =>{
+	var onLogin = (e) =>{
 		e.preventDefault();
-		const {txtUsername ,txtPassword } = this.state;
-		if(txtUsername ==='khactien' && txtPassword === 'khactien'){
+		if(inputValues.txtUsername ==='khactien' && inputValues.txtPassword === 'khactien'){
 			localStorage.setItem('user' , JSON.stringify({
-				username : txtUsername,
-				password : txtPassword
+				username : inputValues.txtUsername,
+				password : inputValues.txtPassword
 			}));
+			alert('Đăng nhập thành công');
 		};
-		if(txtUsername !=='khactien' && txtPassword !== 'khactien'){
-			alert('UserName or Password không đúng')
+		if(inputValues.txtUsername !=='khactien' && inputValues.txtPassword !== 'khactien'){
+			alert('UserName or Password không đúng');
 		}
 	};
-
-	render() {
-		const {txtUsername ,txtPassword } = this.state;
 		const loggedInUser = localStorage.getItem('user') ;
 		if(loggedInUser !== null){
 			var {location} = this.props ;
@@ -54,7 +49,7 @@ class Login extends Component {
 			<div className="row">
 				<div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">
 				
-				<form onSubmit={ this.onLogin } >
+				<form onSubmit={onLogin } >
 					<legend>Đăng nhập</legend>
 				
 					<div className="form-group">
@@ -63,8 +58,8 @@ class Login extends Component {
 							type="text" 
 							className="form-control" 
 							name="txtUsername"
-							value= {txtUsername}
-							onChange={ this.onChange }
+							value= {inputValues.txtUsername}
+							onChange={ onChange }
 						/>
 					</div>
 
@@ -74,8 +69,8 @@ class Login extends Component {
 							type="password" 
 							className="form-control" 
 							name="txtPassword"
-							value={txtPassword}
-							onChange={ this.onChange }
+							value={inputValues.txtPassword}
+							onChange={ onChange }
 						/>
 					</div>
 					
@@ -85,6 +80,5 @@ class Login extends Component {
 				</div>
 			</div>
 		);
-	};
 };
 export default Login ;
