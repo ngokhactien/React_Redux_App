@@ -33,7 +33,7 @@ function Login(props) {
 	};
 		const loggedInUser = localStorage.getItem('user') ;
 		if(loggedInUser !== null){
-			var {location} = this.props ;
+			var {location} = props ;
 			return( <Redirect to={
 					{
 						pathname : '/products',
