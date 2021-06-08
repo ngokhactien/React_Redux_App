@@ -56,7 +56,7 @@ export default function Menu() {
 
     return (
         <div className="navbar navbar-default">
-            <Link to='/'  className="navbar-brand">TiếnNK API</Link>
+            <Link to='/'  className="navbar-brand">API</Link>
             <ul className="nav navbar-nav">
                 {showMenu(menus)}
             </ul>

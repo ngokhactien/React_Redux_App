@@ -45,7 +45,7 @@ export default function ProductActionPage(props) {
         event.preventDefault();
         if(id){
             //http://localhost:3000/products/id   //http method PUT
-            apiCaller(`products${id}`, 'PUT' , {
+            apiCaller(`products/${id}`, 'PUT' , {
                     name : txtName,
                     price : txtPrice === '' ? '0' : txtPrice,
                     status :chkbStatus
