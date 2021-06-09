@@ -1,67 +1,64 @@
-import { useEffect, useState } from "react";
-import apiCaller from './../../utils/apiCaller';
+import React , { Component } from "react";
 import { Link } from 'react-router-dom';
+import {actAddProductsRequest ,actEditProductsRequest ,actuUpdateProductsRequest} from './../../actions/index' ;
+import { connect } from "react-redux";
 
-export default function ProductActionPage(props) {
+class ProductActionPage extends Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            id : '',
+            txtName : '',
+            txtPrice : '',
+            chkbStatus : ''
+        }
+    }
     
-    const [valueInput , setValueInput] = useState({
-        id : '',
-        txtName : '',
-        txtPrice : '',
-        chkbStatus : ''
-    });
     
-    const { id , txtName , txtPrice , chkbStatus } = valueInput ;
-    
-    useEffect(()=>{
-        const {match} = props ;
-        console.log(props.match)
+    componentDidMount(){
+        const {match} = this.props ;
         if(match){
             var id = match.params.id ;
-            apiCaller(`products/${id}` , 'GET' , null )
-            .then(res => {
-                console.log(res)
-                var data = res.data ;
-                setValueInput({
-                    id : data.id,
-                    txtName : data.name,
-                    txtPrice : data.price,
-                    chkbStatus : data.status
-                });
+            this.props.onEditProduct(id);
+        }
+    };
+
+    componentWillReceiveProps(nextProps){
+        if(nextProps && nextProps.itemEidting) {
+            var {itemEidting} = nextProps ;
+            this.setState({
+                id : itemEidting.id,
+                txtName : itemEidting.name,
+                txtPrice : itemEidting.price,
+                chkbStatus : itemEidting.status
             })
         }
-    });
+    }
 
-    const onChange = (event) =>{
+    onChange = (event) =>{
         var target = event.target ;
         var name = target.name ;
         var value =  target.type === 'checkbox' ? target.checked : target.value ;
-        setValueInput(
-            { ...valueInput, [name]: value }
-        );
-    }
-    const  onsave = (event)=>{
-        const {history} = props
+        this.setState({
+            [name] : value
+        });
+    };
+    onsave = (event)=>{
+        const {history} = this.props
+        const {id , txtName , txtPrice , chkbStatus} = this.state ;
         event.preventDefault();
+        var product = {
+            id : id ,
+            name : txtName ,
+            price : txtPrice ,
+            status : chkbStatus
+        }
         if(id){
             //http://localhost:3000/products/id   //http method PUT
-            apiCaller(`products/${id}`, 'PUT' , {
-                    name : txtName,
-                    price : txtPrice === '' ? '0' : txtPrice,
-                    status :chkbStatus
-            }).then(res =>{
-                history.push("/product-list");
-            })
+            this.props.onUpdateProduct(product)
         }else{
             if(txtName !== ''){    
-                apiCaller('products', 'POST' ,{
-                    name : txtName,
-                    price : txtPrice === '' ? '0' : txtPrice,
-                    status :chkbStatus
-                })
-                // .then(res =>{
-                //     console.log(res);
-                // });
+                this.props.onAddProduct(product);
                 //cách 1
                 //history.push("/product-list");
                 //cách 2 
@@ -70,11 +67,13 @@ export default function ProductActionPage(props) {
                 alert('Không được để trống Tên Sản Phẩm ')
             };
         };
+        history.push("/product-list");
     };
-
-    return (
-        <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-            <form onSubmit ={onsave}>
+    render(){
+        const { txtName , txtPrice , chkbStatus } = this.state ;
+        return (
+            <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+            <form onSubmit ={this.onsave}>
                 <div className="form-group">
                     <label >Tên Sản Phẩm :</label>
                     <input 
@@ -82,8 +81,8 @@ export default function ProductActionPage(props) {
                         className="form-control"
                         name="txtName"
                         value={txtName}
-                        onChange={onChange}
-                    />
+                        onChange={this.onChange}
+                        />
                 </div>
 
                 <div className="form-group">
@@ -93,8 +92,8 @@ export default function ProductActionPage(props) {
                         className="form-control" 
                         name="txtPrice"
                         value={txtPrice}
-                        onChange={onChange}
-                    />
+                        onChange={this.onChange}
+                        />
                 </div>
 
                 <div className="form-group">
@@ -107,7 +106,7 @@ export default function ProductActionPage(props) {
                             type="checkbox" 
                             name="chkbStatus"
                             value={chkbStatus}
-                            onChange={onChange}
+                            onChange={this.onChange}
                             checked ={chkbStatus}
                         />
                         Còn Hàng
@@ -121,6 +120,27 @@ export default function ProductActionPage(props) {
             
         </div> 
         
-    );
+        );
+    }
 };
 
+const mapStateToProps = state =>{
+    return {
+        itemEidting : state.itemEidting
+    }
+}
+
+const mapDispatchToProps = ( dispatch , props ) =>{
+    return {
+        onAddProduct : (product) => {
+            dispatch(actAddProductsRequest(product));
+        },
+        onEditProduct : (id) => {
+            dispatch(actEditProductsRequest(id));
+        },
+        onUpdateProduct : (product) => {
+            dispatch(actuUpdateProductsRequest(product));
+        }
+    }
+}
+export default connect(mapStateToProps , mapDispatchToProps) (ProductActionPage);
