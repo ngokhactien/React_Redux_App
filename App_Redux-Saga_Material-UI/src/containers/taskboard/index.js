@@ -35,38 +35,36 @@ function TaskBoard(props) {
 	const [open , setOpen] = useState(false) ;
 	const { classes } = props ;
 
-	
-		
-		const handleClose =()=>{
-			setOpen(false);
-		};
+	const handleClose =()=>{
+		setOpen(false);
+	};
 
-		const openForm = () =>{
-			setOpen(true);
-		}	
+	const openForm = () =>{
+		setOpen(true);
+	}	
+	
+	const renderBoard = ()=>{
+		let xhtml = null;
+					xhtml = (
+						<Grid container spacing={2}>
+							{
+								STATUSES.map(status =>{
+									const taskFiltered = listTask.filter(task => task.status === status.value);
+									return <TaskList key={status.value} tasks ={taskFiltered} status={ status}/>
+								})
+							}
+					</Grid>
+			)  
+			return xhtml;
+		};
 		
-		const renderBoard = ()=>{
-			let xhtml = null;
-						xhtml = (
-							<Grid container spacing={2}>
-								{
-									STATUSES.map(status =>{
-										const taskFiltered = listTask.filter(task => task.status === status.value);
-										return <TaskList key={status.value} tasks ={taskFiltered} status={ status}/>
-									})
-								}
-						</Grid>
-				)  
-				return xhtml;
-			};
-			
-		const renderForm = () =>{
-			let xhtml = null ;
-			xhtml = (
-				<TaskForm onClose={handleClose} open={open}/>
-			)
-			return xhtml ;
-		}
+	const renderForm = () =>{
+		let xhtml = null ;
+		xhtml = (
+			<TaskForm onClose={handleClose} open={open}/>
+		)
+		return xhtml ;
+	}
 	return (
 			<div className={classes.TaskBoard}>
 					<Button variant="contained" color="primary" className={classes.button} onClick={openForm}>
