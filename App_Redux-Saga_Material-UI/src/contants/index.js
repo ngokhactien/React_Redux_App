@@ -1,3 +1,5 @@
+export const API_ENDFOINT = 'http://localhost:8080'
+
 export const STATUSES = [
     {
         value : 0 ,
@@ -11,4 +13,4 @@ export const STATUSES = [
         value : 2 ,
         label : 'COMPLETE'
     }
-] 
+]

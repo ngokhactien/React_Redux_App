@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { Component } from 'react';
 import styles from './styles';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
@@ -8,45 +8,36 @@ import { STATUSES } from '../../contants';
 import TaskList from '../../components/TaskList';
 import TaskForm from '../../components/TaskForm';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as taskActions from './../../actions/task' ;
+class TaskBoard extends Component {
+  constructor (props){
+    super(props);
+    this.state ={
+      open : false
+    }
+  };
 
-const listTask = [
-	{
-		id : 1 ,
-		title : 'Read Book',
-		description : 'Read material ui book',
-		status : 0
-	},
-	{
-		id : 2 ,
-		title : 'Play football',
-		description : 'with my friend',
-		status : 2
-	},
-	{
-		id : 3 ,
-		title : 'Play game',
-		description : '',
-		status : 1
-	}
-];
+  componentDidMount(){
+    const {taskActionCreators} = this.props ;
+    const { fetchListTaskRepuest } = taskActionCreators ;
+    fetchListTaskRepuest();
+  }
 
-
-function TaskBoard(props) {
-	const [open , setOpen] = useState(false) ;
-	const { classes } = props ;
-
-	const handleClose =()=>{
-		setOpen(false);
+	handleClose =()=>{
+    this.setOpen(false);
 	};
 
-	const openForm = () =>{
-		setOpen(true);
-	}	
-	
-	const renderBoard = ()=>{
+	openForm = () =>{
+    this.setOpen(true);
+	}
+
+	renderBoard = () =>{
+    const { listTask } = this.props ;
 		let xhtml = null;
 					xhtml = (
-						<Grid container spacing={2}>
+            <Grid container spacing={2}>
 							{
 								STATUSES.map(status =>{
 									const taskFiltered = listTask.filter(task => task.status === status.value);
@@ -54,30 +45,49 @@ function TaskBoard(props) {
 								})
 							}
 					</Grid>
-			)  
+			)
 			return xhtml;
 		};
-		
-	const renderForm = () =>{
-		let xhtml = null ;
-		xhtml = (
-			<TaskForm onClose={handleClose} open={open}/>
-		)
-		return xhtml ;
-	}
-	return (
-			<div className={classes.TaskBoard}>
-					<Button variant="contained" color="primary" className={classes.button} onClick={openForm}>
-							<AddIcon /> Thêm mới công việc
-					</Button>
-					{renderBoard()}
-					{renderForm()}
-			</div>
-	);
+
+  renderForm = () =>{
+    let xhtml = null ;
+    xhtml = (
+      <TaskForm onClose={this.handleClose} open={this.state.open}/>
+      )
+      return xhtml ;
+    }
+
+  render(){
+    const { classes } = this.props ;
+    return (
+      <div className={classes.TaskBoard}>
+    <Button variant="contained" color="primary" className={classes.button} onClick={this.openForm}>
+    <AddIcon /> Thêm mới công việc
+      </Button>
+      {this.renderBoard()}
+      {this.renderForm()}
+    </div>
+    );
+  }
 }
 
 TaskBoard.propTypes = {
-	classes :PropTypes.object
+  classes :PropTypes.object,
+  taskActionCreators :PropTypes.shape({
+    fetchListTaskRepuest :PropTypes.func
+  })
 };
 
-export default withStyles(styles)(TaskBoard);
+const mapStateToProps = state =>{
+  return {
+    listTask : state.task.liskTask
+  }
+} ;
+
+const mapDispatchToProps = dispath =>{
+  return {
+    taskActionCreators : bindActionCreators(taskActions , dispath)
+  }
+} ;
+
+export default withStyles(styles)(connect(mapStateToProps , mapDispatchToProps)(TaskBoard));
