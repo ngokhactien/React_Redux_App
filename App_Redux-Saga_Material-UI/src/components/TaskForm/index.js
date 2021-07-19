@@ -5,12 +5,12 @@ import TextField from '@material-ui/core/TextField';
 import { Grid, Modal } from '@material-ui/core';
 
 function App(props) {
-  const { onClose ,open , classes , modalStyle} = props ;
+  const { onClose ,open , classes } = props ;
   return (
     <Modal open={open} onClose={onClose}>
       <div className={classes.modal}>
         <from>
-          <Grid container spacing={8}>
+          <Grid container >
             <Grid md={8}>
               <TextField
               id="standard-name"
