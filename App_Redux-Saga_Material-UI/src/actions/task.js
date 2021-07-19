@@ -25,14 +25,20 @@ export const fetchListTaskFail = error => {
   }
 };
 
-export const fetchListTaskRepuest = () =>{
-  return dispatch => {
-    dispatch(fetchListTask())
-    taskApis.getList().then(resp =>{
-      const { data } = resp ;
-      dispatch(fetchListTaskSuccess(data));
-    }).catch(error => {
-      dispatch(fetchListTaskFail(error))
-    });
-  };
+export const filterTask = keyWord => {
+  return {
+    type : taskConstants.FILTER_TASK,
+    payload : {
+      keyWord
+    }
+  }
+};
+
+export const filterTaskSUCCESS = data => {
+  return {
+    type : taskConstants.FILTER_TASK_SUCCESS,
+    payload : {
+      data
+    }
+  }
 };

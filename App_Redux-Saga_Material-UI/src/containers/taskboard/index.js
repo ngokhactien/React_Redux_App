@@ -7,30 +7,37 @@ import Grid from '@material-ui/core/Grid';
 import { STATUSES } from '../../contants';
 import TaskList from '../../components/TaskList';
 import TaskForm from '../../components/TaskForm';
+import SearchBox from '../../components/SearchBox';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as taskActions from './../../actions/task' ;
 class TaskBoard extends Component {
+
   constructor (props){
     super(props);
-    this.state ={
+    this.state = {
       open : false
     }
   };
 
   componentDidMount(){
     const {taskActionCreators} = this.props ;
-    const { fetchListTaskRepuest } = taskActionCreators ;
-    fetchListTaskRepuest();
+    const { fetchListTask } = taskActionCreators ;
+    fetchListTask();
   }
 
-	handleClose =()=>{
-    this.setOpen(false);
+	handleClose = () =>{
+    this.setState({
+      open : false
+    });
 	};
 
-	openForm = () =>{
-    this.setOpen(true);
+	openForm = () => {
+    console.log(this.state.open);
+    this.setState({
+      open : true
+    });
 	}
 
 	renderBoard = () =>{
@@ -46,8 +53,8 @@ class TaskBoard extends Component {
 							}
 					</Grid>
 			)
-			return xhtml;
-		};
+		return xhtml;
+	};
 
   renderForm = () =>{
     let xhtml = null ;
@@ -55,15 +62,51 @@ class TaskBoard extends Component {
       <TaskForm onClose={this.handleClose} open={this.state.open}/>
       )
       return xhtml ;
-    }
+  }
+
+  loadData = () => {
+    const {taskActionCreators} = this.props ;
+    const { fetchListTask } = taskActionCreators ;
+    fetchListTask();
+  }
+
+  handlefilter = e =>{
+    const {value} = e.target ;
+    const {taskActionCreators} = this.props ;
+    const { filterTask } = taskActionCreators ;
+    filterTask(value);
+  }
+
+  renderSearchBox = ()=>{
+    let xhtml = null ;
+    xhtml = (
+      <SearchBox handleChange={this.handlefilter} />
+    )
+    return xhtml ;
+  }
 
   render(){
     const { classes } = this.props ;
     return (
       <div className={classes.TaskBoard}>
-    <Button variant="contained" color="primary" className={classes.button} onClick={this.openForm}>
-    <AddIcon /> Thêm mới công việc
-      </Button>
+        <Button
+          style = {{  marginRight :10 }}
+          variant="contained"
+          color="primary"
+          className={classes.button}
+          onClick={this.loadData}
+        >
+          Load Data
+        </Button>
+        <Button
+          variant="contained"
+          color="primary"
+          className={classes.button}
+          onClick={ this.openForm }
+        >
+          <AddIcon /> Thêm mới công việc
+        </Button>
+      {this.renderSearchBox()}
       {this.renderBoard()}
       {this.renderForm()}
     </div>
@@ -74,13 +117,14 @@ class TaskBoard extends Component {
 TaskBoard.propTypes = {
   classes :PropTypes.object,
   taskActionCreators :PropTypes.shape({
-    fetchListTaskRepuest :PropTypes.func
+    fetchListTask :PropTypes.func ,
+    filterTask : PropTypes.func
   })
 };
 
 const mapStateToProps = state =>{
   return {
-    listTask : state.task.liskTask
+    listTask : state.task.listTask
   }
 } ;
 

@@ -1,7 +1,7 @@
 import * as taskContants from './../contants/task';
 import { toastError } from './../helpers/toastHelper';
 const initialState = {
-  liskTask:[]
+  listTask:[]
 };
 
 const reducers = (state = initialState , action) =>{
@@ -9,14 +9,14 @@ const reducers = (state = initialState , action) =>{
     case taskContants.FETCH_TASK :{
       return {
         ...state ,
-        liskTask:[]
+        listTask:[]
       }
     }
     case taskContants.FETCH_TASK_SUCCESS :{
       const { data } = action.payload;
       return {
         ...state ,
-        liskTask:data
+        listTask:data
       }
     }
     case taskContants.FETCH_TASK_FAILED :{
@@ -24,7 +24,20 @@ const reducers = (state = initialState , action) =>{
       toastError(error);
       return {
         ...state ,
-        liskTask:[]
+        listTask:[]
+      }
+    }
+    case taskContants.FILTER_TASK_SUCCESS :{
+      const { data } = action.payload;
+      if( data === ''){
+        return {
+          ...state ,
+          listTask:[]
+        }
+      }
+      return {
+        ...state ,
+        listTask:data
       }
     }
     default :
