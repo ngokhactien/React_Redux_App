@@ -34,7 +34,6 @@ class TaskBoard extends Component {
 	};
 
 	openForm = () => {
-    console.log(this.state.open);
     this.setState({
       open : true
     });
@@ -58,10 +57,11 @@ class TaskBoard extends Component {
 
   renderForm = () =>{
     let xhtml = null ;
+    const { open } = this.state ;
     xhtml = (
-      <TaskForm onClose={this.handleClose} open={this.state.open}/>
-      )
-      return xhtml ;
+        <TaskForm onClose={this.handleClose} open={open}/>
+    )
+    return xhtml ;
   }
 
   loadData = () => {
