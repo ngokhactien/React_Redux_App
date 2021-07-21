@@ -3,7 +3,8 @@ import * as taskTypes from './../contants/task' ;
 import { getList } from './../apis/task';
 import { STATUS_CODE } from './../contants';
 import { fetchListTaskSuccess , fetchListTaskFail, filterTaskSUCCESS } from './../actions/task';
-import { showLoading , hideLoading} from './../actions/ui' ;
+import { showLoading , hideLoading } from './../actions/ui' ;
+import { toastSuccess } from './../helpers/toastHelper' ;
 
 function* watchFetchListTaskAction() {
   while(true){
@@ -13,6 +14,7 @@ function* watchFetchListTaskAction() {
     const { status , data } = resp ;
     if(status === STATUS_CODE.SUCCESS){
       yield delay(1500);
+      toastSuccess();
       yield put(fetchListTaskSuccess(data)) // để dispath action { type : taskConstants.FETCH_TASK_SUCCESS, payload : {data } }
     }else {
       yield delay(1500);
