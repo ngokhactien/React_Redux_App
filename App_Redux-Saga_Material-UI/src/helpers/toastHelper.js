@@ -13,3 +13,7 @@ export const toastError = error =>{
 export const toastSuccess = () =>{
     toast.success('Load Data Success');
 };
+
+// export const toastCloseForm = () =>{
+//   toast.success('Load Data Success');
+// };

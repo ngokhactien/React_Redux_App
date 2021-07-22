@@ -4,7 +4,7 @@ import loading from './../../assets/images/loading.gif' ;
 import PropTypes from 'prop-types';
 import { bindActionCreators , compose } from 'redux' ;
 import { connect } from 'react-redux' ;
-import * as uiActions from './../../actions/ui' ;
+// import * as uiActions from './../../actions/ui' ;
 
 function GlobalLoading(props) {
   const { classes , showLoading } = props;

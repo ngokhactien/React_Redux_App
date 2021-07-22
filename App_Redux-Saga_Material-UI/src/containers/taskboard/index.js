@@ -4,14 +4,16 @@ import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
 import Grid from '@material-ui/core/Grid';
-import { STATUSES } from '../../contants';
-import TaskList from '../../components/TaskList';
-import TaskForm from '../../components/TaskForm';
-import SearchBox from '../../components/SearchBox';
+import { STATUSES } from './../../contants';
+import TaskList from './../../components/TaskList';
+import TaskForm from './../TaskForm';
+import SearchBox from './../../components/SearchBox';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import { bindActionCreators, compose } from 'redux';
 import * as taskActions from './../../actions/task' ;
+import * as modalActions from '../../actions/modal' ;
+
 class TaskBoard extends Component {
 
   constructor (props){
@@ -36,9 +38,11 @@ class TaskBoard extends Component {
 	};
 
 	openForm = () => {
-    this.setState({
-      open : true
-    });
+    const { modalActionCreators } = this.props ;
+    const { showModal , changeModalTitle , changeModalContent} = modalActionCreators ;
+    showModal() ;
+    changeModalTitle('Thêm mới công việc ');
+    changeModalContent(<TaskForm/>)
 	}
 
 	renderBoard = () =>{
@@ -56,15 +60,6 @@ class TaskBoard extends Component {
 			)
 		return xhtml;
 	};
-
-  renderForm = () =>{
-    let xhtml = null ;
-    const { open } = this.state ;
-    xhtml = (
-        <TaskForm onClose={this.handleClose} open={open}/>
-    )
-    return xhtml ;
-  }
 
   loadData = () => {
     const {taskActionCreators} = this.props ;
@@ -110,7 +105,6 @@ class TaskBoard extends Component {
         </Button>
       {this.renderSearchBox()}
       {this.renderBoard()}
-      {this.renderForm()}
     </div>
     );
   }
@@ -121,6 +115,12 @@ TaskBoard.propTypes = {
   taskActionCreators :PropTypes.shape({
     fetchListTask :PropTypes.func ,
     filterTask : PropTypes.func
+  }),
+  modalActionCreators :PropTypes.shape({
+    showModal :PropTypes.func ,
+    hideModal :PropTypes.func ,
+    changeModalTitle : PropTypes.func ,
+    changeModalContent : PropTypes.func
   })
 };
 
@@ -132,8 +132,13 @@ const mapStateToProps = state =>{
 
 const mapDispatchToProps = dispath =>{
   return {
-    taskActionCreators : bindActionCreators(taskActions , dispath)
+    taskActionCreators : bindActionCreators(taskActions , dispath),
+    modalActionCreators : bindActionCreators(modalActions , dispath)
   }
 } ;
+const withConnect = connect(mapStateToProps , mapDispatchToProps) ;
 
-export default withStyles(styles)(connect(mapStateToProps , mapDispatchToProps)(TaskBoard));
+export default compose(
+  withStyles(styles),
+  withConnect
+)(TaskBoard);
