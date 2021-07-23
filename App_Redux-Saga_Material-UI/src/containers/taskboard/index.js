@@ -12,7 +12,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators, compose } from 'redux';
 import * as taskActions from './../../actions/task' ;
-import * as modalActions from '../../actions/modal' ;
+import * as modalActions from './../../actions/modal' ;
 
 function TaskBoard(props) {
   const { classes } = props ;
@@ -112,14 +112,14 @@ const mapStateToProps = state =>{
   return {
     listTask : state.task.listTask
   }
-} ;
+};
 
 const mapDispatchToProps = dispath =>{
   return {
     taskActionCreators : bindActionCreators(taskActions , dispath),
     modalActionCreators : bindActionCreators(modalActions , dispath)
   }
-} ;
+};
 const withConnect = connect(mapStateToProps , mapDispatchToProps) ;
 
 export default compose(
