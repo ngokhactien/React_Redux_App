@@ -43,20 +43,20 @@ function TaskForm(props) {
       </Grid>
     </from>
   );
-}
+};
 
 TaskForm.propTypes = {
   classes : PropTypes.object,
   modalActionCreator : PropTypes.shape({
     hideModal : PropTypes.func
   })
-}
+};
 
 const mapStateToProps = null;
 
 const mapDispatchToProps = dispatch => ({
   modalActionCreator : bindActionCreators(modalActions , dispatch)
-}) ;
+});
 
 const withConnect = connect(mapStateToProps , mapDispatchToProps);
 

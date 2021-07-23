@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { useEffect } from 'react';
 import styles from './styles';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
@@ -14,39 +14,27 @@ import { bindActionCreators, compose } from 'redux';
 import * as taskActions from './../../actions/task' ;
 import * as modalActions from '../../actions/modal' ;
 
-class TaskBoard extends Component {
+function TaskBoard(props) {
+  const { classes } = props ;
 
-  constructor (props){
-    super(props);
-    this.state = {
-      open : false
-    }
-  };
-
-  componentDidMount(){
-    const { taskActionCreators } = this.props ;
+  useEffect( () => {
+    const { taskActionCreators } = props ;
     const { fetchListTask , fetchListTaskSuccess ,fetchListTaskFail } = taskActionCreators ;
     fetchListTaskSuccess();
     fetchListTaskFail();
     fetchListTask();
-  }
+  }, [] ) ;
 
-	handleClose = () =>{
-    this.setState({
-      open : false
-    });
-	};
-
-	openForm = () => {
-    const { modalActionCreators } = this.props ;
+	const openForm = () => {
+    const { modalActionCreators } = props ;
     const { showModal , changeModalTitle , changeModalContent} = modalActionCreators ;
     showModal() ;
     changeModalTitle('Thêm mới công việc ');
     changeModalContent(<TaskForm/>)
 	}
 
-	renderBoard = () =>{
-    const { listTask } = this.props ;
+	const renderBoard = () =>{
+    const { listTask } = props ;
 		let xhtml = null;
 					xhtml = (
             <Grid container spacing={2}>
@@ -61,53 +49,49 @@ class TaskBoard extends Component {
 		return xhtml;
 	};
 
-  loadData = () => {
-    const {taskActionCreators} = this.props ;
+  const loadData = () => {
+    const {taskActionCreators} = props ;
     const { fetchListTask } = taskActionCreators ;
     fetchListTask();
   }
 
-  handlefilter = e =>{
+  const handlefilter = e =>{
     const {value} = e.target ;
-    const {taskActionCreators} = this.props ;
+    const {taskActionCreators} = props ;
     const { filterTask } = taskActionCreators ;
     filterTask(value);
   }
 
-  renderSearchBox = ()=>{
+  const renderSearchBox = ()=>{
     let xhtml = null ;
     xhtml = (
-      <SearchBox handleChange={this.handlefilter} />
+      <SearchBox handleChange={handlefilter} />
     )
     return xhtml ;
   }
-
-  render(){
-    const { classes } = this.props ;
-    return (
-      <div className={classes.TaskBoard}>
-        <Button
-          style = {{  marginRight :10 }}
-          variant="contained"
-          color="primary"
-          className={classes.button}
-          onClick={this.loadData}
-        >
-          Load Data
-        </Button>
-        <Button
-          variant="contained"
-          color="primary"
-          className={classes.button}
-          onClick={ this.openForm }
-        >
-          <AddIcon /> Thêm mới công việc
-        </Button>
-      {this.renderSearchBox()}
-      {this.renderBoard()}
+  return (
+    <div className={classes.TaskBoard}>
+      <Button
+        style = {{  marginRight :10 }}
+        variant="contained"
+        color="primary"
+        className={classes.button}
+        onClick={loadData}
+      >
+        Load Data
+      </Button>
+      <Button
+        variant="contained"
+        color="primary"
+        className={classes.button}
+        onClick={ openForm }
+      >
+        <AddIcon /> Thêm mới công việc
+      </Button>
+      {renderSearchBox()}
+      {renderBoard()}
     </div>
-    );
-  }
+  );
 }
 
 TaskBoard.propTypes = {

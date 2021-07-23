@@ -2,9 +2,8 @@ import { withStyles } from '@material-ui/core/styles';
 import styles from './styles' ;
 import loading from './../../assets/images/loading.gif' ;
 import PropTypes from 'prop-types';
-import { bindActionCreators , compose } from 'redux' ;
+import { compose } from 'redux' ;
 import { connect } from 'react-redux' ;
-// import * as uiActions from './../../actions/ui' ;
 
 function GlobalLoading(props) {
   const { classes , showLoading } = props;
@@ -28,12 +27,6 @@ const mapStateToProps = state =>{
     showLoading : state.ui.showLoading
   }
 };
-
-// const mapDispatchToProps = dispatch =>{
-//   return {
-//     uiActions : bindActionCreators(uiActions , dispatch)
-//   }
-// }
 
 const withConect = connect(mapStateToProps , null) ;
 
