@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 import { bindActionCreators, compose } from 'redux';
 import { connect } from 'react-redux';
 import * as modalActions from '../../actions/modal' ;
+import { Field, reduxForm } from 'redux-form' ;
 
 function TaskForm(props) {
   const { classes , modalActionCreator } = props ;
@@ -14,6 +15,12 @@ function TaskForm(props) {
   return (
     <from>
       <Grid container >
+        <Grid item md={12}>
+          <Field
+            name='title'
+            component='input'
+          />
+        </Grid>
         <Grid md={12}>
           <TextField
           id="standard-name"
@@ -60,7 +67,13 @@ const mapDispatchToProps = dispatch => ({
 
 const withConnect = connect(mapStateToProps , mapDispatchToProps);
 
+const FORM_NAME = 'TASK_MANAGEMENT';
+
+const withReduxForm = reduxForm({
+  form  : FORM_NAME
+})
 export default compose(
   withStyles(styles),
+  withReduxForm ,
   withConnect
 )(TaskForm);
