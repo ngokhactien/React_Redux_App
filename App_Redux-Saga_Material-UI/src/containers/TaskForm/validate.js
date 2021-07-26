@@ -10,8 +10,9 @@ const validate = values => {  // nó dựa vào name của field
 
   if(! description) {
     errors.description = 'Vui lòng nhập mô tả !' ; //
-  }else if(description.trim() && description.length < 5){
-    errors.description = 'Tiêu đề phải 5 ký tự !';
+  }else
+    if(description.trim() && description.length < 5){
+      errors.description = 'Tiêu đề phải 5 ký tự !';
   }
   return errors ;
 }

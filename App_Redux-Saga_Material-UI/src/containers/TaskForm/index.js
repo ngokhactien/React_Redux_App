@@ -11,6 +11,7 @@ import renderTextField from './../../components/FormHelpper/TextField';
 import validate from './validate' ;
 import * as modalActions from '../../actions/modal' ;
 import * as taskActions from './../../actions/task' ;
+
 // const required = value => {
 //   let error = 'vui lòng nhập tiêu đề';
 //   if(value !== null && typeof value !== 'undefined' ){
@@ -108,7 +109,8 @@ const FORM_NAME = 'TASK_MANAGEMENT';
 const withReduxForm = reduxForm({
   form  : FORM_NAME ,
   validate   // validate : validate cái dày dùng chung  , còn validate chỉ dành cho từng cái field
-})
+});
+
 export default compose(
   withStyles(styles),
   withReduxForm ,

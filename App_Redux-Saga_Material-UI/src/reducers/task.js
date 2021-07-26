@@ -49,7 +49,7 @@ const reducers = (state = initialState , action) =>{
       const { data } = action.payload;
       return {
         ...state ,
-        listTask: [data].concat(state.listTask) // concat nốt array và chuyền vào nó array
+        listTask: [data].concat(state.listTask) //concat nốt array và chuyền vào nó array
       }
     }
     case taskContants.ADD_TASK_FAILED :{

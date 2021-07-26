@@ -56,7 +56,7 @@ function* addTaskSage({ payload }) {
   }else {
     yield put(addTaskFail(data))
   }
-  yield delay(1400);
+  yield delay(1300);
   yield put(hideLoading())
 }
 
