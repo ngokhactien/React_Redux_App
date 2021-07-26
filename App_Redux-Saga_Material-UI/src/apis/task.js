@@ -9,7 +9,7 @@ export const getList = () =>{
 }
 
 //http://localhost:8080/tasks method : post
-export const addTask = data =>{
+export const addTask = data => {
   return axiosService.post(`${API_ENDFOINT}/${url}` , data);
 }
 
