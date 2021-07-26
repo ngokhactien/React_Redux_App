@@ -11,11 +11,16 @@ class AxiosService {
   };
 
   hendleError(error){
-    return Promise.reject(error);
+    // return Promise.reject(error);
+    console.log('Không có lỗi');
   };
 
   get(url){
     return this.instance.get(url);
+  }
+
+  post(url , body) {
+    return this.instance.post(url , body);
   }
 };
 

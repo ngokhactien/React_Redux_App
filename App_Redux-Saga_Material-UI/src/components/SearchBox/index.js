@@ -1,8 +1,8 @@
-import { Button, TextField } from '@material-ui/core';
+import { TextField } from '@material-ui/core';
 import { withStyles } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import styles from './styles';
-import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+// import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 
 function SearchBox(props) {
   const { classes ,handleChange } = props ;

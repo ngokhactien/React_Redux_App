@@ -17,6 +17,6 @@ export const STATUSES = [
 
 export const STATUS_CODE = {
   SUCCESS : 200 ,
-  CREATE : 201 ,
+  CREATED : 201 ,
   UPDATE : 202
 }

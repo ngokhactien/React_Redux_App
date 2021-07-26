@@ -42,3 +42,32 @@ export const filterTaskSUCCESS = data => {
     }
   }
 };
+
+// add - task
+export const addTask = ( title , description ) => {
+  return {
+    type : taskConstants.ADD_TASK,
+    payload : {
+      title ,
+      description
+    }
+  }
+};
+
+export const addTaskSuccess = data => {
+  return {
+    type : taskConstants.ADD_TASK_SUCCESS,
+    payload : {
+      data
+    }
+  }
+};
+
+export const addTaskFail = error => {
+  return {
+    type : taskConstants.ADD_TASK_FAILED,
+    payload : {
+      error
+    }
+  }
+};
