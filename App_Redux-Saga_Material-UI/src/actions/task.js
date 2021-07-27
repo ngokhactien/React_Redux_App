@@ -1,8 +1,11 @@
 import * as taskConstants from './../contants/task';
 
-export const fetchListTask = () => {
+export const fetchListTask = ( params = {} ) => {
   return {
-    type : taskConstants.FETCH_TASK
+    type : taskConstants.FETCH_TASK,
+    payload : {
+      params
+    }
   }
 };
 
@@ -24,11 +27,11 @@ export const fetchListTaskFail = error => {
   }
 };
 
-export const filterTask = keyWord => {
+export const filterTask = keyword => {
   return {
     type : taskConstants.FILTER_TASK,
     payload : {
-      keyWord
+      keyword
     }
   }
 };

@@ -1,21 +1,23 @@
-import { fork, take , call, put , delay, takeLatest ,select, takeEvery } from 'redux-saga/effects';
+import { fork, take , call, put , delay, takeLatest , takeEvery } from 'redux-saga/effects';
 import * as taskTypes from './../contants/task' ;
 import { addTask, getList } from './../apis/task';
 import { STATUSES, STATUS_CODE } from './../contants';
-import { fetchListTaskSuccess , fetchListTaskFail, filterTaskSUCCESS, addTaskSuccess, addTaskFail } from './../actions/task';
+import { fetchListTaskSuccess , fetchListTaskFail, addTaskSuccess, addTaskFail, fetchListTask } from './../actions/task';
 import { showLoading , hideLoading } from './../actions/ui' ;
 import { toastSuccess } from './../helpers/toastHelper' ;
 import { hideModal } from '../actions/modal';
 
 function* watchFetchListTaskAction() {
   while(true){
-    yield take(taskTypes.FETCH_TASK); // là action khi được dispatch
+    const action = yield take(taskTypes.FETCH_TASK); // là action khi được dispatch
+    console.log('action' , action);
     yield put(showLoading());     // để dispatch một action
-    const resp = yield call(getList);
+    const { params } = action.payload ;
+    const resp = yield call(getList , params);  // call( tên func , tham số chuyền vào )
     const { status , data } = resp ;
 
     if(status === STATUS_CODE.SUCCESS){
-      yield delay(1500);
+      yield delay(1000);
       toastSuccess();
       yield put(fetchListTaskSuccess(data)) // để dispath action { type : taskConstants.FETCH_TASK_SUCCESS, payload : {data } }
     }else {
@@ -27,16 +29,13 @@ function* watchFetchListTaskAction() {
 }
 
 function* filterTaskSaga({ payload }) {    // muốn vào dữ liệu bên trong dùng { } để v
-  yield delay(500);
-  const { keyWord } = payload ;
-  const list = yield select(state => state.task.listTask);
-  const filteredTask = list.filter(task =>
-    task.title
-      .trim()
-      .toLowerCase()
-      .includes(keyWord.trim().toLowerCase())
-  );
-  yield put(filterTaskSUCCESS(filteredTask))
+  yield delay(600);
+  const { keyword } = payload;
+  console.log(keyword);
+  yield put(
+    fetchListTask({
+      q:keyword
+  }))
 }
 
 
