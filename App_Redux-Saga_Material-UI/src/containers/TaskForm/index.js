@@ -1,16 +1,16 @@
-import React from 'react';
-import { withStyles } from '@material-ui/core/styles';
-import styles from './styles.js';
-import Button from '@material-ui/core/Button';
 import { Box, Grid } from '@material-ui/core';
+import Button from '@material-ui/core/Button';
+import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
-import { bindActionCreators, compose } from 'redux';
+import React from 'react';
 import { connect } from 'react-redux';
-import { Field, reduxForm } from 'redux-form' ;
+import { bindActionCreators, compose } from 'redux';
+import { Field, reduxForm } from 'redux-form';
+import * as modalActions from '../../actions/modal';
+import * as taskActions from './../../actions/task';
 import renderTextField from './../../components/FormHelpper/TextField';
-import validate from './validate' ;
-import * as modalActions from '../../actions/modal' ;
-import * as taskActions from './../../actions/task' ;
+import styles from './styles.js';
+import validate from './validate';
 
 // const required = value => {
 //   let error = 'vui lòng nhập tiêu đề';

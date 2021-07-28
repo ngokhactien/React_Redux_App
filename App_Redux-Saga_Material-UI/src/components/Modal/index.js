@@ -1,11 +1,11 @@
-import PropTypes from 'prop-types';
+import Modal from '@material-ui/core/Modal';
 import { withStyles } from '@material-ui/core/styles';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
-import { connect } from 'react-redux' ;
-import { compose , bindActionCreators } from 'redux' ;
-import Modal from '@material-ui/core/Modal';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { bindActionCreators, compose } from 'redux';
+import * as modalActions from '../../actions/modal';
 import styles from './styles';
-import * as modalActions from '../../actions/modal' ;
 
 function commonModal(props) {
   const { classes , open ,title, component , modalActionCreators  } = props;

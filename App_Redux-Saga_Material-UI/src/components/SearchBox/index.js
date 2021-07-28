@@ -1,5 +1,4 @@
-import { TextField } from '@material-ui/core';
-import { withStyles } from '@material-ui/core';
+import { TextField, withStyles } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import styles from './styles';
 // import DeleteForeverIcon from '@material-ui/icons/DeleteForever';

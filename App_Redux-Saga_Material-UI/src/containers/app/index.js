@@ -1,14 +1,13 @@
-import { withStyles } from '@material-ui/core/styles';
-import { ThemeProvider } from '@material-ui/core/styles';
-import styles from './styles.js';
-import theme from './../../commons/Theme';
+import { ThemeProvider, withStyles } from '@material-ui/core/styles';
 import { Provider } from 'react-redux';
-import configureStore from './../../redux/configureStore'
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import GlobalLoading from '../../components/GlobalLoading';
+import theme from './../../commons/Theme';
 import Modal from './../../components/Modal';
+import configureStore from './../../redux/configureStore';
 import TaskBoard from './../taskboard';
+import styles from './styles.js';
 
 const store = configureStore();
 

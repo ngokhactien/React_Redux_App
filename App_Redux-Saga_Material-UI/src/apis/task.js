@@ -1,6 +1,6 @@
+import qs from 'query-string';
 import axiosService from './../commons/axiosService';
-import { API_ENDFOINT } from './../contants'
-import qs from 'query-string' ;
+import { API_ENDFOINT } from './../contants';
 
 //http://localhost:8080/tasks
 const url = 'tasks';

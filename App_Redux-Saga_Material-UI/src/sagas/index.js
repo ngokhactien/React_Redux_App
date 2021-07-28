@@ -1,11 +1,11 @@
-import { fork, take , call, put , delay, takeLatest , takeEvery } from 'redux-saga/effects';
-import * as taskTypes from './../contants/task' ;
+import { call, delay, fork, put, take, takeEvery, takeLatest } from 'redux-saga/effects';
+import { hideModal } from '../actions/modal';
+import { addTaskFail, addTaskSuccess, fetchListTask, fetchListTaskFail, fetchListTaskSuccess } from './../actions/task';
+import { hideLoading, showLoading } from './../actions/ui';
 import { addTask, getList } from './../apis/task';
 import { STATUSES, STATUS_CODE } from './../contants';
-import { fetchListTaskSuccess , fetchListTaskFail, addTaskSuccess, addTaskFail, fetchListTask } from './../actions/task';
-import { showLoading , hideLoading } from './../actions/ui' ;
-import { toastSuccess } from './../helpers/toastHelper' ;
-import { hideModal } from '../actions/modal';
+import * as taskTypes from './../contants/task';
+import { toastSuccess } from './../helpers/toastHelper';
 
 function* watchFetchListTaskAction() {
   while(true){

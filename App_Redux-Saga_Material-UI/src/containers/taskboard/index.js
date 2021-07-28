@@ -1,18 +1,18 @@
-import { useEffect } from 'react';
-import styles from './styles';
-import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import AddIcon from '@material-ui/icons/Add';
 import Grid from '@material-ui/core/Grid';
-import { STATUSES } from './../../contants';
-import TaskList from './../../components/TaskList';
-import TaskForm from './../TaskForm';
-import SearchBox from './../../components/SearchBox';
+import { withStyles } from '@material-ui/core/styles';
+import AddIcon from '@material-ui/icons/Add';
 import PropTypes from 'prop-types';
+import { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators, compose } from 'redux';
-import * as taskActions from './../../actions/task' ;
-import * as modalActions from './../../actions/modal' ;
+import * as modalActions from './../../actions/modal';
+import * as taskActions from './../../actions/task';
+import SearchBox from './../../components/SearchBox';
+import TaskList from './../../components/TaskList';
+import { STATUSES } from './../../contants';
+import TaskForm from './../TaskForm';
+import styles from './styles';
 
 function TaskBoard(props) {
   const { classes } = props ;

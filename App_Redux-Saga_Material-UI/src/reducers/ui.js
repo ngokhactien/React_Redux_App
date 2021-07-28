@@ -1,4 +1,4 @@
-import * as types from './../contants/ui' ;
+import * as types from './../contants/ui';
 
 const initialState = {
   showLoading : false

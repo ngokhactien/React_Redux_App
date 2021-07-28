@@ -1,9 +1,9 @@
 import { withStyles } from '@material-ui/core/styles';
-import styles from './styles' ;
-import loading from './../../assets/images/loading.gif' ;
 import PropTypes from 'prop-types';
-import { compose } from 'redux' ;
-import { connect } from 'react-redux' ;
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import loading from './../../assets/images/loading.gif';
+import styles from './styles';
 
 function GlobalLoading(props) {
   const { classes , showLoading } = props;

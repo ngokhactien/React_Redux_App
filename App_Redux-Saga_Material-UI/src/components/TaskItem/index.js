@@ -1,12 +1,12 @@
-import { withStyles } from '@material-ui/core/styles';
-import styles from './styles';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
 import Fab from '@material-ui/core/Fab';
+import Grid from '@material-ui/core/Grid';
 import Icon from '@material-ui/core/Icon';
+import { withStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+import styles from './styles';
 
 function TaskItem(props) {
   const { classes , task ,status  } = props ;
@@ -33,12 +33,12 @@ function TaskItem(props) {
               <Icon fontSize='small'>
                 edit_icon
               </Icon>
-            </Fab>  
+            </Fab>
             <Fab color="primary" aria-label="Delete" className={classes.fab} size="small">
             <Icon fontSize='small'>
               delete_icon
             </Icon>
-          </Fab>  
+          </Fab>
           </CardActions>
   </Card>
   );
