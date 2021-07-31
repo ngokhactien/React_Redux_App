@@ -1,4 +1,4 @@
-import { TextField } from '@material-ui/core';
+import TextField from '@material-ui/core/TextField'
 import PropTypes from 'prop-types';
 import React from 'react';
 
@@ -14,9 +14,9 @@ const renderTextField = ({
     error={touched && invalid}
     helperText={touched && error}
     {...input}
-    {...custom} // => ngoài sẽ chuyền vào đây id , className
+    {...custom}
   />
-);
+)
 
 renderTextField.propTypes = {
   label :  PropTypes.string ,

@@ -1,5 +1,6 @@
 import * as taskConstants from './../contants/task';
 
+// render data
 export const fetchListTask = ( params = {} ) => {
   return {
     type : taskConstants.FETCH_TASK,
@@ -27,6 +28,7 @@ export const fetchListTaskFail = error => {
   }
 };
 
+//search - task
 export const filterTask = keyword => {
   return {
     type : taskConstants.FILTER_TASK,
@@ -68,6 +70,46 @@ export const addTaskSuccess = data => {
 export const addTaskFail = error => {
   return {
     type : taskConstants.ADD_TASK_FAILED,
+    payload : {
+      error
+    }
+  }
+};
+
+//EDIT
+export const setTaskEditting = task => {
+  return {
+    type : taskConstants.SET_TASK_EDITTING,
+    payload : {
+      task
+    }
+  }
+};
+
+//UPDATE
+export const updateTask = ( title , description , status ) => {
+  return {
+    type : taskConstants.UPDATE_TASK,
+    payload : {
+      title ,
+      description,
+      status
+    }
+  }
+};
+
+export const updateTaskSuccess = data => {
+  return {
+    type : taskConstants.UPDATE_TASK_SUCCESS,
+    payload : {
+      data
+    }
+  }
+};
+
+export const updateTaskFail = error => {
+  return {
+    type : taskConstants.UPDATE_TASK_FAILED,
     payload : {
       error
     }

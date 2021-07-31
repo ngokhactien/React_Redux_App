@@ -1,4 +1,4 @@
-import { Box, Grid } from '@material-ui/core';
+import { Box, Grid, MenuItem } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators, compose } from 'redux';
 import { Field, reduxForm } from 'redux-form';
 import * as modalActions from '../../actions/modal';
+import renderSelectField from './../../components/FormHelpper/Select';
 import * as taskActions from './../../actions/task';
 import renderTextField from './../../components/FormHelpper/TextField';
 import styles from './styles.js';
@@ -29,7 +30,14 @@ import validate from './validate';
 // };
 
 function TaskForm(props) {
-  const { classes , modalActionCreator , handleSubmit , invalid , submitting } = props ;  //invalid xem đã hợp lệ của form chưa ,submitting ko cho submit nhiều lần
+  const {
+    classes ,
+    modalActionCreator ,
+    handleSubmit ,
+    invalid ,
+    submitting,
+    taskEditting
+  } = props ;  //invalid xem đã hợp lệ của form chưa ,submitting ko cho submit nhiều lần
   const { hideModal } = modalActionCreator ;
 
   const handleSubmitForm = data => {
@@ -38,32 +46,55 @@ function TaskForm(props) {
     const { addTask } =taskActionsCreator ;
     const { title , description } =data ;
     addTask(title , description) ;
-    console.log('data :' , data );
   }
 
+  const renderStatusSelecttion = () => {
+    let xhtmh = null ;
+    if(taskEditting && taskEditting.id){  
+      xhtmh = (
+        <Field
+          id="status"
+          label="Trạng Thái"
+          className = {classes.select}
+          name="status"
+          component={renderSelectField}
+        >
+          <MenuItem value={0}>READY</MenuItem>
+          <MenuItem value={1}>IN PROGRESS</MenuItem>
+          <MenuItem value={2}>COMPLETE</MenuItem>
+        </Field>
+      )
+    }
+    return xhtmh;
+  }
   return (
+
     <form onSubmit={handleSubmit(handleSubmitForm)}>
       <Grid container >
-        <Field  // của redux -form
-          id="standard-name"
-          label="Tiêu đề"
-          className = {classes.textField}
-          margin='normal'
-          name="title"
-          component={renderTextField}
-          // validate={[required , minLengths]}  // 1 thuộc tính thì dùng {} còn 2 trở lên  {[ , ]}
-        />
-          <Field  // của redux -form
-            id="standard-multiline-flexible"
+        <Grid md={12} item >
+          <Field
+            id="title"
+            label="Tiêu đề"
+            className={classes.textField}
+            margin="normal"
+            name="title"
+            component={renderTextField}
+            />
+        </Grid>
+        <Grid md={12} item>
+          <Field
+            id="description"
             label="Mô tả"
             multiline
-            rowsMax={4}
-            className = {classes.textField}
-            margin='normal'
+            rowsMax="4"
+            className={classes.textField}
+            margin="normal"
             name="description"
             component={renderTextField}
-        />
-        <Grid md={12}>
+            />
+          </Grid>
+        { renderStatusSelecttion() }
+        <Grid md={12} item>
           <Box  display="flex"mt={2} flexDirection="row-reverse">
             <Box ml={1}>
               <Button variant="contained" onClick={hideModal} > Hủy Bỏ</Button>
@@ -87,19 +118,29 @@ TaskForm.propTypes = {
   modalActionCreator : PropTypes.shape({
     hideModal : PropTypes.func
   }),
-  taskActionsCreator :{
+  taskActionsCreator :PropTypes.shape({
     addTask : PropTypes.func,
-  },
+  }),
   handleSubmit : PropTypes.func,
   invalid :PropTypes.bool,
-  submitting :PropTypes.bool
+  submitting :PropTypes.bool ,
+  taskEditting : PropTypes.object,
 };
 
-const mapStateToProps = null;
+const mapStateToProps = state => {
+  return {
+    taskEditting: state.task.taskEditting ,
+    initialValues: {   // của redux-from ( initialValues api ) để lấy data đổ vào form
+      title: state.task.taskEditting ? state.task.taskEditting.title : '',
+      description : state.task.taskEditting ? state.task.taskEditting.description : '',
+      status : state.task.taskEditting ?state.task.taskEditting.status : ''
+    }
+  };
+};
 
 const mapDispatchToProps = dispatch => ({
   modalActionCreator : bindActionCreators(modalActions , dispatch) ,
-  taskActionsCreator :  bindActionCreators(taskActions , dispatch)
+  taskActionsCreator : bindActionCreators(taskActions , dispatch)
 });
 
 const withConnect = connect(mapStateToProps , mapDispatchToProps);
@@ -113,6 +154,6 @@ const withReduxForm = reduxForm({
 
 export default compose(
   withStyles(styles),
-  withReduxForm ,
-  withConnect
+  withConnect,  // phải trước Redux-Form
+  withReduxForm,
 )(TaskForm);

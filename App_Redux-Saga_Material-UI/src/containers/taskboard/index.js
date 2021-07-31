@@ -23,15 +23,27 @@ function TaskBoard(props) {
     fetchListTaskSuccess();
     fetchListTaskFail();
     fetchListTask();
-  }, [] ) ;
+  },[] ) ;
 
 	const openForm = () => {
-    const { modalActionCreators } = props ;
+    const { modalActionCreators , taskActionCreators } = props ;
+    const { setTaskEditting } = taskActionCreators ;
+    setTaskEditting(null);
     const { showModal , changeModalTitle , changeModalContent} = modalActionCreators ;
     showModal() ;
     changeModalTitle('Thêm mới công việc ');
     changeModalContent(<TaskForm/>)
-	}
+	};
+
+  const hendleEditTask = task => {
+    const {taskActionCreators , modalActionCreators} = props ;
+    const { setTaskEditting } = taskActionCreators ;
+    setTaskEditting(task);
+    const { showModal , changeModalTitle , changeModalContent} = modalActionCreators ;
+    showModal() ;
+    changeModalTitle('Cập nhập công việc ');
+    changeModalContent(<TaskForm/>)
+  }
 
 	const renderBoard = () =>{
     const { listTask } = props ;
@@ -41,7 +53,12 @@ function TaskBoard(props) {
 							{
 								STATUSES.map(status =>{
 									const taskFiltered = listTask.filter(task => task.status === status.value);
-									return <TaskList key={status.value} tasks ={taskFiltered} status={ status}/>
+									return <TaskList
+                            key={status.value}
+                            tasks ={taskFiltered}
+                            status={status}
+                            onClickEdit={hendleEditTask}
+                          />
 								})
 							}
 					</Grid>
@@ -69,6 +86,7 @@ function TaskBoard(props) {
     )
     return xhtml ;
   }
+
   return (
     <div className={classes.TaskBoard}>
       <Button
@@ -98,7 +116,8 @@ TaskBoard.propTypes = {
   classes :PropTypes.object,
   taskActionCreators :PropTypes.shape({
     fetchListTask :PropTypes.func ,
-    filterTask : PropTypes.func
+    filterTask : PropTypes.func,
+    setTaskEditting : PropTypes.func
   }),
   modalActionCreators :PropTypes.shape({
     showModal :PropTypes.func ,
