@@ -42,15 +42,19 @@ function TaskForm(props) {
 
   const handleSubmitForm = data => {
     // destroy()   // để xóa giá trị ô input của redux-form , nó được chuyền vào qua props
-    const { taskActionsCreator } = props ;
-    const { addTask } =taskActionsCreator ;
-    const { title , description } =data ;
-    addTask(title , description) ;
+    const { taskActionsCreator  } = props ;
+    const { addTask , updateTask } =taskActionsCreator ;
+    const { title , description , status } = data ;
+    if(taskEditting  && taskEditting.id ){
+      updateTask( title , description , status)
+    }else{
+      addTask(title , description) ;
+    }
   }
 
   const renderStatusSelecttion = () => {
     let xhtmh = null ;
-    if(taskEditting && taskEditting.id){  
+    if(taskEditting && taskEditting.id){
       xhtmh = (
         <Field
           id="status"
@@ -120,6 +124,7 @@ TaskForm.propTypes = {
   }),
   taskActionsCreator :PropTypes.shape({
     addTask : PropTypes.func,
+    updateTask: PropTypes.func,
   }),
   handleSubmit : PropTypes.func,
   invalid :PropTypes.bool,
@@ -148,7 +153,7 @@ const withConnect = connect(mapStateToProps , mapDispatchToProps);
 const FORM_NAME = 'TASK_MANAGEMENT';
 
 const withReduxForm = reduxForm({
-  form  : FORM_NAME ,
+  form  : FORM_NAME , //dùng để kết nối state lên form
   validate   // validate : validate cái dày dùng chung  , còn validate chỉ dành cho từng cái field
 });
 

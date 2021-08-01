@@ -16,5 +16,14 @@ export const getList = ( params = {} ) => {   // (params = {} ) params khá»Ÿi tá
 //http://localhost:8080/tasks method : post
 export const addTask = data => {
   return axiosService.post(`${API_ENDFOINT}/${url}` , data);
+};
+
+//http://localhost:8080/tasks/:id method : put
+export const updateTask = (data , taskId) => {
+  return axiosService.put(`${API_ENDFOINT}/${url}/${taskId}` , data);
 }
 
+//http://localhost:8080/tasks/:id method : delete
+export const deleteTask = taskId => {
+  return axiosService.delete(`${API_ENDFOINT}/${url}/${taskId}` );
+}

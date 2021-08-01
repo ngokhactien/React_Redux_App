@@ -1,5 +1,5 @@
 import * as taskConstants from './../contants/task';
-
+import { STATUSES } from './../contants'
 // render data
 export const fetchListTask = ( params = {} ) => {
   return {
@@ -87,7 +87,7 @@ export const setTaskEditting = task => {
 };
 
 //UPDATE
-export const updateTask = ( title , description , status ) => {
+export const updateTask = ( title , description , status = STATUSES[0].value ) => {
   return {
     type : taskConstants.UPDATE_TASK,
     payload : {
@@ -110,6 +110,34 @@ export const updateTaskSuccess = data => {
 export const updateTaskFail = error => {
   return {
     type : taskConstants.UPDATE_TASK_FAILED,
+    payload : {
+      error
+    }
+  }
+};
+
+//DELETE
+export const deleteTask = id => {
+  return {
+    type : taskConstants.DELETE_TASK,
+    payload : {
+      id
+    }
+  }
+};
+
+export const deleteTaskSuccess = data => {
+  return {
+    type : taskConstants.DELETE_TASK_SUCCESS,
+    payload : {
+      data
+    }
+  }
+};
+
+export const deleteTaskFail = error => {
+  return {
+    type : taskConstants.DELETE_TASK_FAILED,
     payload : {
       error
     }

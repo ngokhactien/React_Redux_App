@@ -10,7 +10,7 @@ import Proptypes from 'prop-types';
 import styles from './styles';
 
 function TaskItem(props) {
-  const { classes , task ,status , onClickEdit  } = props ;
+  const { classes , task ,status , onClickEdit ,onClickDelete  } = props ;
   const { id ,title } = task ;
 
   return (
@@ -43,7 +43,10 @@ function TaskItem(props) {
               </Icon>
             </Fab>
             <Fab color="primary" aria-label="Delete" className={classes.fab} size="small">
-            <Icon fontSize='small'>
+            <Icon
+              fontSize='small'
+              onClick={onClickDelete}
+            >
               delete_icon
             </Icon>
           </Fab>
@@ -57,6 +60,7 @@ TaskItem.prototype = {
   task : Proptypes.object,
   status : Proptypes.object ,
   onClickEdit :Proptypes.func ,
+  onClickDelete :Proptypes.func ,
 };
 
 export default withStyles(styles)(TaskItem);

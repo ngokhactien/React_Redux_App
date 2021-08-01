@@ -10,8 +10,10 @@ export const toastError = error =>{
   }
 };
 
-export const toastSuccess = () =>{
-    toast.success('Load Data Success');
+export const toastSuccess = message =>{
+  if(message !== null && typeof message !=='undefined' && message !==''){
+    toast.success(message);
+  }
 };
 
 // export const toastCloseForm = () =>{

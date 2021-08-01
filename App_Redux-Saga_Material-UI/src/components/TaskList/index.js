@@ -6,7 +6,7 @@ import Proptypes  from 'prop-types';
 import styles from './styles';
 
 function TaskList(props) {
-    const { classes , tasks ,status , onClickEdit } = props ;
+    const { classes , tasks ,status , onClickEdit ,onClickDelete } = props ;
     return (
         <Grid item md={4} xs={12} key ={status.value} >
             <Box mt={2} mb={2}>
@@ -20,6 +20,7 @@ function TaskList(props) {
                                           status={status}
                                           key={task.id}
                                           onClickEdit ={() => onClickEdit(task)}
+                                          onClickDelete ={() => onClickDelete(task)}
                                         />
                         })
                     }
@@ -32,8 +33,8 @@ TaskList.prototype = {
   classes  : Proptypes.object,
   tasks  : Proptypes.object,
   status : Proptypes.object,
-  onClickEdit : Proptypes.func
-
+  onClickEdit : Proptypes.func,
+  onClickDelete  : Proptypes.func
 };
 
 export default withStyles(styles)(TaskList);

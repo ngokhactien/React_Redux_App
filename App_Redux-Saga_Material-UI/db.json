@@ -1,40 +1,10 @@
 {
   "tasks": [
     {
-      "id": 1,
-      "title": "Read Book",
-      "description": "Learning react.js",
-      "status": 0
-    },
-    {
-      "id": 2,
-      "title": "Play Game",
-      "description": "With my friend",
-      "status": 1
-    },
-    {
-      "id": 3,
-      "title": "Learning jave",
-      "description": "Learning react.js",
-      "status": 2
-    },
-    {
-      "title": "333333333333",
-      "description": "2133123123",
+      "title": "33333333333333333",
+      "description": "333333333333333333444",
       "status": 0,
-      "id": 4
-    },
-    {
-      "title": "khactien",
-      "description": "32312312",
-      "status": 0,
-      "id": 5
-    },
-    {
-      "title": "ádasdasd·",
-      "description": "ádasdsad",
-      "status": 0,
-      "id": 6
+      "id": 1
     }
   ]
 }

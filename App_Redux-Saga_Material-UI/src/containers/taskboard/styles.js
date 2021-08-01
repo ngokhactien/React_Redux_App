@@ -10,6 +10,9 @@ const styles = theme => ({
     color : theme.shape.textColor,
     borderColor : theme.shape.border,
     borderRadius : theme.shape.borderRadius
+  },
+  modalConfirmTextBold :{
+    fontWeight: 700
   }
 });
 export default styles ;
