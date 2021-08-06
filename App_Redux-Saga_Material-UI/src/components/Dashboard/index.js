@@ -7,6 +7,7 @@ import * as sidebarActions from './../../actions/sidebar';
 import Header from './Header';
 import Sidebar from './Sidebar';
 import styles from './styles';
+
 function Dashboard(props) {
   const { classes , children , name , showSidebar }=props;
 

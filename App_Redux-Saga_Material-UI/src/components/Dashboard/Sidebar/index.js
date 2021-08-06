@@ -1,13 +1,13 @@
-import { withStyles } from '@material-ui/core/styles';
-import PropTypes from 'prop-types';
-import React , { useState } from 'react';
-import { compose } from 'redux';
-import styles from './styles';
 import Drawer from '@material-ui/core/Drawer';
-import { ADMIN_ROUTES } from './../../../contants';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
+import { withStyles } from '@material-ui/core/styles';
+import PropTypes from 'prop-types';
+import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { compose } from 'redux';
+import { ADMIN_ROUTES } from './../../../contants';
+import styles from './styles';
 
 function Sidebar(props) {
 
