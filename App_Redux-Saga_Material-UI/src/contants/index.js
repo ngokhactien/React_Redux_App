@@ -1,3 +1,6 @@
+import AdminHomePage from "./../containers/AdminHomePage";
+import TaskBoard from "./../containers/taskboard";
+
 export const API_ENDFOINT = 'http://localhost:8080'
 
 export const STATUSES = [
@@ -20,3 +23,17 @@ export const STATUS_CODE = {
   CREATED : 201 ,
   UPDATE : 202
 };
+
+export const ADMIN_ROUTES = [
+  {
+    path :'/',
+    name : 'Trang quảng trị' ,
+    exact : true,
+    component : AdminHomePage
+  },
+  {
+    path :'/task-board',
+    name : 'Quản lý Công Việc' ,
+    component : TaskBoard
+  }
+]
