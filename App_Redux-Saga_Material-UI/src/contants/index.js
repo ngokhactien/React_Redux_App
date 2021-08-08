@@ -1,4 +1,6 @@
 import AdminHomePage from "./../containers/AdminHomePage";
+import LoginPage from "./../containers/LoginPage";
+import SignupPage from "./../containers/SignupPage";
 import TaskBoard from "./../containers/taskboard";
 
 export const API_ENDFOINT = 'http://localhost:8080'
@@ -26,14 +28,27 @@ export const STATUS_CODE = {
 
 export const ADMIN_ROUTES = [
   {
-    path :'/',
+    path :'/admin',
     name : 'Trang quảng trị' ,
     exact : true,
     component : AdminHomePage
   },
   {
-    path :'/task-board',
+    path :'/admin/task-board',
     name : 'Quản lý Công Việc' ,
     component : TaskBoard
+  }
+]
+
+export const ROUTES = [
+  {
+    name : 'Đăng Nhập' ,
+    path :'/login',
+    component : LoginPage
+  },
+  {
+    name : 'Đăng ký' ,
+    path :'/signup',
+    component : SignupPage
   }
 ]

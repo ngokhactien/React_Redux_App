@@ -12,13 +12,14 @@ import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { compose } from 'redux';
 import styles from './styles';
+import { withRouter } from 'react-router';
 
 const menuId = 'primary-search-account-menu';
 const mobileMenuId = 'primary-search-account-menu-mobile';
 
 function Header(props) {
 
-  const { classes , name } = props;
+  const { classes , name , showSidebar , onToggleSidebar } = props;
   const [anchorEl, setAnchorEl] = useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
   const isMenuOpen = Boolean(anchorEl);
@@ -65,6 +66,12 @@ function Header(props) {
     )
   }
 
+  const handleLogout = () =>{
+    const { history } = props;
+    if(history){
+      history.push('/login')
+    }
+  }
   const renderMenu = () =>{
     return(
       <Menu
@@ -77,9 +84,15 @@ function Header(props) {
         onClose={handleMenuClose}
       >
         {/* <MenuItem onClick={handleMenuClose}>Profile</MenuItem> */}
-        <MenuItem onClick={handleMenuClose}>Logout</MenuItem>
+        <MenuItem onClick={handleLogout}>Logout</MenuItem>
       </Menu>
     )
+  }
+
+  const handleToggleSidebar = () =>{
+    if(onToggleSidebar){
+      onToggleSidebar(!showSidebar);
+    }
   }
 
   return (
@@ -88,9 +101,10 @@ function Header(props) {
       <Toolbar>
         <IconButton
           edge="start"
-          className={classes.menuButton}
+          className={classes.menuButton }
           color="inherit"
           aria-label="open drawer"
+          onClick={handleToggleSidebar}
         >
           <MenuIcon />
         </IconButton>
@@ -131,9 +145,12 @@ function Header(props) {
 
 Header.propTypes = {
   classes : PropTypes.object,
-  name :PropTypes.string
+  name :PropTypes.string,
+  showSidebar: PropTypes.bool,
+  onToggleSidebar:PropTypes.func,
+  history : PropTypes.object,
 };
 
 export default compose(
   withStyles(styles)
-) (Header);
+) (withRouter(Header));

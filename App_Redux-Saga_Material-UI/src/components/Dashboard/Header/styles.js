@@ -46,6 +46,6 @@ const styles = theme =>({
     [theme.breakpoints.up('md')]: {
       display: 'none',
     },
-  },
+  }
 })
 export default styles ;

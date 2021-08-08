@@ -1,6 +1,7 @@
 import React from 'react';
 
 function AdminHomePage(props) {
+
   return (
     <h1>
       Admin Home Page
@@ -9,7 +10,6 @@ function AdminHomePage(props) {
 }
 
 AdminHomePage.propTypes = {
-
 };
 
 export default AdminHomePage;

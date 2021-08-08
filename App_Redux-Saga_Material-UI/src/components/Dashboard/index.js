@@ -1,4 +1,5 @@
 import { withStyles } from '@material-ui/core/styles';
+import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
@@ -11,16 +12,31 @@ import styles from './styles';
 function Dashboard(props) {
   const { classes , children , name , showSidebar }=props;
 
-  const handleToggleSidebar = () => {
-
+  const handleToggleSidebar = value => {
+    const { sidebarActionCreators } = props;
+    const { showSidebar , hideSidebar } = sidebarActionCreators;
+    if(value === true){
+      showSidebar();
+    }else{
+      hideSidebar();
+    }
   };
 
   return (
       <div className={classes.dashboard} >
-        <Header name={name}/>
+        <Header
+          name={name}
+          showSidebar={showSidebar}
+          onToggleSidebar ={handleToggleSidebar}
+        />
         <div className={classes.wrapper}>
-          <Sidebar showSidebar={showSidebar}  onToggleSidebar ={handleToggleSidebar}/>
-          <div className={classes.wrapperContent}>
+          <Sidebar
+            showSidebar={showSidebar}
+            onToggleSidebar ={handleToggleSidebar}
+          />
+        <div className={classNames(classes.wrapperContent, {
+            [classes.shiftleft] :showSidebar === false
+          })}>
             { children }
           </div>
         </div>
