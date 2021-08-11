@@ -10,9 +10,9 @@ import MenuIcon from '@material-ui/icons/Menu';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
+import { withRouter } from 'react-router';
 import { compose } from 'redux';
 import styles from './styles';
-import { withRouter } from 'react-router';
 
 const menuId = 'primary-search-account-menu';
 const mobileMenuId = 'primary-search-account-menu-mobile';

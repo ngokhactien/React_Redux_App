@@ -13,7 +13,7 @@ class AxiosService {
 
   hendleError(error){
     // return Promise.reject(error);
-    console.log('Không có lỗi');
+    // console.log('Không có lỗi');
   };
 
   get(url){

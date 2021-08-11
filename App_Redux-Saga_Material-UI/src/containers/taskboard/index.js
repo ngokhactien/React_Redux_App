@@ -24,7 +24,7 @@ function TaskBoard(props) {
     fetchListTaskSuccess();
     fetchListTaskFail();
     fetchListTask();
-  },[] ) ;
+  } , [] ) ;
 
 	const openForm = () => {
     const { modalActionCreators , taskActionCreators } = props ;

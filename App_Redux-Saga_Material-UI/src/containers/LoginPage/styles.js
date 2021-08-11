@@ -15,6 +15,9 @@ const styles = theme => ({
   },
   buttonSingup : {
     margin : 10
+  },
+  login:{
+    textDecoration: 'none'
   }
 });
 export default styles ;

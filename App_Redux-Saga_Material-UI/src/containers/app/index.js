@@ -8,6 +8,7 @@ import AdminLayoutRoute from '../../commons/Layout/AdminLayoutRoute';
 import LoginLayoutRoute from '../../commons/Layout/LoginLayoutRoute';
 import GlobalLoading from '../../components/GlobalLoading';
 import theme from './../../commons/Theme';
+import ErrorDefault from './../../components/Error';
 import Modal from './../../components/Modal';
 import { ADMIN_ROUTES, ROUTES } from './../../contants';
 import configureStore from './../../redux/configureStore';
@@ -63,6 +64,7 @@ function App() {
           <Switch>
             {rederAdminroutes()}        {/* phương thức trả về các route */}
             {rederLoginroutes()}
+            <ErrorDefault/>
           </Switch>
           <GlobalLoading/>     {/* hiện thị loading */}
         </ThemeProvider>
