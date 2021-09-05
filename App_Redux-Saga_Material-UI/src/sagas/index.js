@@ -2,7 +2,7 @@ import { call, delay, fork, put, select, take, takeEvery, takeLatest } from 'red
 import { hideModal } from '../actions/modal';
 import { addTaskFail, addTaskSuccess, deleteTaskFail, deleteTaskSuccess, fetchListTask, fetchListTaskFail, fetchListTaskSuccess, updateTaskFail, updateTaskSuccess } from './../actions/task';
 import { hideLoading, showLoading } from './../actions/ui';
-import { addTask, getList, updateTask , deleteTask } from './../apis/task';
+import { addTask, deleteTask, getList, updateTask } from './../apis/task';
 import { STATUSES, STATUS_CODE } from './../contants';
 import * as taskTypes from './../contants/task';
 import { toastSuccess } from './../helpers/toastHelper';
